@@ -12,7 +12,7 @@
 </style>
 </head>
 <body>
-<div id="stage"><iframe id="f" src="./index.html"></iframe></div>
+<div id="stage"><iframe id="f" src="./index.html" scrolling="no"></iframe></div>
 <script>
 (function () {
   var f = document.getElementById('f');
@@ -23,6 +23,11 @@
     });
     return q.then(function () {
       var d = f.contentDocument, w = f.contentWindow;
+      // a phone has overlay scrollbars: hide them so the layout width is a true 390px
+      d.head.insertAdjacentHTML('beforeend',
+        '<style>html{-webkit-text-size-adjust:100%}' +
+        'html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}' +
+        'html{scrollbar-width:none;-ms-overflow-style:none}</style>');
       var y = parseInt((location.search.match(/[?&]y=(\d+)/) || [0, 0])[1], 10) || 0;
       if (y) w.scrollTo(0, y);
       window.__ready = true;
