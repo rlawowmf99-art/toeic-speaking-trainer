@@ -961,7 +961,7 @@ footer{color:var(--ink-4)}
   -webkit-background-clip:border-box;background-clip:border-box;
   -webkit-text-fill-color:currentColor;text-decoration:none;
 }
-.hero-sub{margin-top:12px;font-size:.92rem;line-height:1.68;color:rgba(255,255,255,.75);max-width:42ch}
+.hero .hero-sub{margin-top:12px;font-size:.92rem;line-height:1.68;color:rgba(255,255,255,.78);max-width:42ch}
 .hero-meta{margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:7px 13px;
   font-size:.72rem;font-weight:700;letter-spacing:.03em;color:rgba(255,255,255,.6)}
 .hero-meta span{display:inline-flex;align-items:center;gap:13px}
@@ -1030,7 +1030,7 @@ footer{color:var(--ink-4)}
 .section-head h2{font-family:var(--serif);font-weight:700;font-size:1.1rem}
 .part-grid{gap:12px;margin-top:0}
 .part-card{padding:16px 15px 14px;gap:8px}
-.part-card .pc-en{font-size:.64rem}
+.part-card .pc-en{font-size:.64rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .part-card .pc-meta{font-size:.73rem}
 
 /* --- folded class guidance --- */
@@ -1070,7 +1070,7 @@ footer{
   .hero{margin-top:14px;border-radius:18px;padding:22px 18px 18px}
   .hero::before{inset:6px;border-radius:13px}
   .hero h1{font-size:1.55rem}
-  .hero-sub{font-size:.86rem}
+  .hero .hero-sub{font-size:.86rem}
   .hero .seg{grid-template-columns:1fr;gap:5px}
   .hero .seg button{padding:8px 10px}
   .hero .seg button .seg-txt{flex-direction:row;align-items:baseline;gap:7px}
@@ -3998,6 +3998,7 @@ var LEVEL_GUIDE = [
      1. branding + settings
      ========================================================= */
   var brand = Object.assign({}, DEFAULT_BRAND, loadJSON(LS_BRAND, {}));
+  if (brand.tag === '표현영어 · Express in English') brand.tag = DEFAULT_BRAND.tag;  /* older default */
   var settings = Object.assign({ tts: true, stt: true, auto: true, sound: true }, loadJSON(LS_SET, {}));
 
   function hexToRgb(h) {
