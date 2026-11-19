@@ -196,9 +196,9 @@ b,strong{font-weight:650}
 .hero-inner{
   position:relative;z-index:1;
   max-width:var(--maxw);margin:0 auto;
-  padding:56px 24px 60px;
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,368px);
-  gap:56px;align-items:center;
+  padding:52px 24px 56px;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,372px);
+  gap:44px;align-items:center;
 }
 .hero-copy{position:relative;z-index:1;min-width:0}
 .hero-eyebrow{
@@ -1325,7 +1325,7 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
 
   <footer>
     <span class="foot-kr" id="footBrand">TOEIC Speaking Lab</span>
-    <span>녹음은 브라우저 메모리에만 저장됩니다 · 학습용 참고 점수</span>
+    <span>녹음은 브라우저 메모리에만 저장됩니다 · TOEIC은 ETS의 등록상표이며, 이 페이지는 비공식 학습 도구입니다</span>
   </footer>
 </div>
 
@@ -3953,8 +3953,9 @@ var LEVEL_GUIDE = [
     if (mk === DEFAULT_BRAND.mark) mk = '';          /* default letter = tiger crest */
     if (glyph) glyph.textContent = mk;
     $('brandMark').classList.toggle('has-glyph', !!mk);
-    $('footBrand').textContent = (brand.name || DEFAULT_BRAND.name) + ' · TOEIC Speaking Lab';
-    document.title = (brand.name || DEFAULT_BRAND.name) + ' · TOEIC Speaking 실전 모의고사';
+    var bname = brand.name || DEFAULT_BRAND.name;
+    $('footBrand').textContent = bname === DEFAULT_BRAND.name ? bname : bname + ' · TOEIC Speaking Lab';
+    document.title = bname + ' · 실전 모의고사';
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', brand.color);
   }
@@ -4412,7 +4413,7 @@ var LEVEL_GUIDE = [
       var b = el('button', 'part-card');
       b.type = 'button';
       b.setAttribute('aria-label', 'Part ' + p.n + ' ' + p.ko + ' 연습 시작');
-      b.appendChild(el('span', 'pc-num', String(p.n)));
+      b.appendChild(el('span', 'pc-num', (p.n < 10 ? '0' : '') + p.n));
       var h = el('h4', null, 'Part ' + p.n + ' · ' + p.ko);
       b.appendChild(h);
       b.appendChild(el('div', 'pc-en', p.en));
