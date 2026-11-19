@@ -781,6 +781,41 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
   font-family:var(--mono);font-size:.55rem;font-weight:500;letter-spacing:.06em;color:var(--brand-2);
   background:var(--brand-soft);padding:2px 6px;border-radius:3px;text-transform:uppercase;
 }
+/* 1-click grading prompt copy (no API key) */
+.ai-copy-bar{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:15px 17px;margin-bottom:15px;border-radius:var(--r-md);
+  border:1px solid var(--brand-line);
+  background:linear-gradient(180deg,#F6FBFC 0%,#EDF6F8 100%);
+}
+.ai-copy-bar .acb-txt{flex:1;min-width:220px}
+.ai-copy-bar b{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:.85rem;font-weight:640;letter-spacing:-.024em;color:var(--navy)}
+.ai-copy-bar p{font-size:.75rem;color:var(--ink-3);margin-top:5px;line-height:1.65}
+.ai-copy-bar .btn{flex:none}
+.acb-badge{
+  font-family:var(--mono);font-size:.52rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:#fff;background:var(--navy);padding:2px 6px;border-radius:3px;
+}
+.rec-row .rt .rt-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rec-copy{
+  display:inline-flex;align-items:center;gap:4px;margin-left:auto;
+  font-family:var(--font);font-size:.67rem;font-weight:550;letter-spacing:-.012em;
+  color:var(--brand-2);background:#fff;border:1px solid var(--brand-line);
+  border-radius:4px;padding:3px 8px;line-height:1.25;transition:.14s;
+}
+.rec-copy:hover{background:var(--brand-soft);border-color:#B7DBDF;transform:translateY(-1px)}
+.rec-copy:active{transform:none}
+.copy-modal-text{
+  width:100%;height:270px;resize:vertical;display:block;
+  font-family:var(--mono);font-size:.7rem;line-height:1.62;color:var(--ink-2);
+  border:1px solid var(--line);border-radius:var(--r-md);padding:12px 13px;
+  background:#FBFCFE;-webkit-user-select:text;user-select:text;
+}
+.ai-copy-hint{font-size:.75rem;color:var(--ink-3);margin:0 0 10px;line-height:1.65}
+@media (max-width:640px){
+  .ai-copy-bar .btn{width:100%}
+  .rec-copy{margin-left:0}
+}
 .ai-head{display:flex;align-items:flex-start;gap:12px;justify-content:space-between;margin-bottom:16px}
 .ai-head h3{font-size:1rem;font-weight:640;letter-spacing:-.032em}
 .ai-head p{font-family:var(--mono);font-size:.62rem;color:var(--ink-4);margin-top:5px;letter-spacing:.05em}
@@ -1354,6 +1389,18 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
 
     <div class="card ai-sum-card">
       <div class="ai-sum-title">AI 자동 채점 <span class="tag">발음·억양 · 문법·어휘 · 논리 · AL 교정</span></div>
+
+      <div class="ai-copy-bar">
+        <div class="acb-txt">
+          <b>API 키가 없어도 채점받을 수 있어요 <span class="acb-badge">무료</span></b>
+          <p>이 세션의 문항·내 답변·모범답안을 ETS AL 기준 채점 프롬프트로 묶었습니다. ChatGPT나 피클에 그대로 붙여넣으면 무료로 AL 첨삭을 받을 수 있어요.</p>
+        </div>
+        <button class="btn btn-primary" id="btnCopyAll">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.4"/><path d="M5.5 15H4.8A1.8 1.8 0 0 1 3 13.2V4.8A1.8 1.8 0 0 1 4.8 3h8.4A1.8 1.8 0 0 1 15 4.8v.7"/></svg>
+          AI 채점용 프롬프트 복사
+        </button>
+      </div>
+
       <div id="aiSummary"></div>
     </div>
 
@@ -1481,6 +1528,7 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
     <div id="aiBody"></div>
     <div class="modal-actions">
       <button class="btn btn-ghost btn-sm" id="aiModelBtn">모범답안 보기</button>
+      <button class="btn btn-ghost btn-sm" id="aiCopyBtn">이 문항 채점 프롬프트 복사</button>
       <button class="btn btn-primary btn-sm" id="aiClose2">닫기</button>
     </div>
   </div>
@@ -1504,6 +1552,27 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
     <div class="modal-actions">
       <button class="btn btn-ghost btn-sm" id="guideClose2">닫기</button>
       <button class="btn btn-primary btn-sm" id="guideStart">이 파트 연습하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Grading prompt · manual copy fallback ===== -->
+<div class="modal" id="copyModal" role="dialog" aria-modal="true" aria-labelledby="copyTitle">
+  <div class="modal-card wide">
+    <div class="ai-head">
+      <div>
+        <h3 id="copyTitle">채점용 프롬프트</h3>
+        <p id="copySub">ChatGPT · 피클에 붙여넣기</p>
+      </div>
+      <button class="drawer-close" id="copyClose" aria-label="닫기">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="ai-copy-hint" id="copyMsg">자동 복사가 차단되었습니다. 아래 텍스트를 길게 눌러 전체 선택한 뒤 복사해서 ChatGPT나 피클에 붙여넣으세요.</p>
+    <textarea class="copy-modal-text" id="copyText" readonly aria-label="채점용 프롬프트 텍스트"></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" id="btnCopyRetry">다시 복사</button>
+      <button class="btn btn-primary btn-sm" id="copyClose2">닫기</button>
     </div>
   </div>
 </div>
@@ -5138,8 +5207,16 @@ var LEVEL_GUIDE = [
 
       var rt = el('div', 'rt');
       rt.appendChild(el('div', 'rt-main', kindLabel(q)));
-      var meta = a.url ? ('녹음 ' + a.dur + '초 · ' + Math.round(a.size / 1024) + ' KB') : (a.skipped ? '건너뛴 문항' : '녹음 없음');
-      rt.appendChild(el('div', 'rt-meta', meta));
+      var meta = el('div', 'rt-meta', a.url ? ('녹음 ' + a.dur + '초 · ' + Math.round(a.size / 1024) + ' KB') : (a.skipped ? '건너뛴 문항' : '녹음 없음'));
+      if (a.url || transcriptOf(a)) {
+        var cp = el('button', 'rec-copy', '이 문항 채점 복사');
+        cp.type = 'button';
+        cp.title = '이 문항만 채점하는 프롬프트를 복사합니다 (API 키 불필요)';
+        cp.setAttribute('aria-label', 'Q' + q.no + ' AI 채점용 프롬프트 복사');
+        cp.addEventListener('click', function () { copyGradingPrompt(gradingPrompt([item], true), cp); });
+        meta.appendChild(cp);
+      }
+      rt.appendChild(meta);
       if (a.score) {
         rt.appendChild(el('div', 'rt-score', 'Lv.' + a.score.estimated.level + ' · ' + a.score.overall.toFixed(1) + '/5'));
       }
@@ -6001,6 +6078,228 @@ var LEVEL_GUIDE = [
     });
   }
 
+  /* ---------- AI grading prompt · 1-click copy (no API key) ---------- */
+  var GRADING_RULES = [
+    '[당신의 역할]',
+    '당신은 ETS TOEIC Speaking 공식 채점관(rater)이자, 한국인 학습자를 AL(160~200) 구간으로 끌어올리는 전문 스피킹 코치입니다. 아래 학습자의 실제 답변을 실제 시험과 같은 기준으로 냉정하게 채점해 주세요.',
+    '',
+    '[채점 기준 · 각 1.0~5.0점, 0.5 단위]',
+    '1) 발음·억양·강세 (Delivery) — 발음 정확도, 억양, 내용어 강세, 끊어 읽기(chunking), 속도와 유창성. 글로는 실제 음성을 들을 수 없으므로 받아쓰기에 드러난 망설임·반복·끊긴 문장·문장 끝 처리로 판단하고, 그 한계를 분명히 밝히세요.',
+    '2) 문법·어휘·다양성 (Grammar & Vocabulary) — 시제·수 일치·관사·전치사의 정확성, 어휘 범위, 문장 구조의 다양성(관계절·분사구 등). gonna·wanna·gotta·a ton of·way more·super 같은 캐주얼 슬랭과 like·you know 같은 필러는 의미가 통하더라도 감점입니다.',
+    '3) 내용·과제·논리 (Content & Task) — 과제 수행과 논리 구조. AL 공식을 그대로 적용하세요. 낭독: 의미 단위 끊기 + 내용어 강세 + 문장 끝 억양 / 사진: 전체 장면 → 전경 주인공(현재진행형) → 배경 세부 → 추측 한 문장 / 질문 응답: 첫 문장에 즉답 + 구체적 근거(30초 문항은 이유 2개) / 표: 요청된 항목을 정확한 수치로 모두 언급하고 수치를 지어내지 않기 / 의견: 주장 → 근거 2개와 예시 → 반대 인정 → 마무리 문장.',
+    '',
+    '[점수와 레벨]',
+    '- 4.5~5.0은 실제 시험 160~200(AL)에 해당하는 답변에만 주세요. 3.5~4.0은 IH 수준입니다. 점수를 부풀리지 마세요.',
+    '- 세 기준 평균으로 Lv.1~8과 IM1·IM2·IM3·IH·AL 구간, 예상 점수대(예: 150-160)를 함께 제시하세요.',
+    '',
+    '[출력 형식 · 문항마다]',
+    '1. 세 기준 점수(0.5 단위) + 각 한 줄 근거 — 제가 실제로 말한 표현을 인용해서 지적하세요.',
+    '2. 추정 레벨: Lv.n · IM/IH/AL · 예상 점수대',
+    '3. 잘한 점 2개 / 고칠 점 2개 (한국어 해요체, 구체적으로)',
+    '4. AL 교정: 내 문장을 그대로 인용 → AL 수준의 자연스러운 시험 영어로 다시 쓰기 → 왜 점수가 오르는지 한 줄. 캐주얼한 슬랭은 쓰지 말고, 실제 시험 시간 안에 말할 수 있는 길이로.'
+  ].join('\n');
+
+  function promptPlain(s) {
+    return String(s == null ? '' : s)
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/(p|div|li|h[1-6])>/gi, '\n')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&amp;/g, '&')
+      .replace(/[ \t]+\n/g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
+  function promptTable(t) {
+    if (!t) return '';
+    var out = [];
+    if (t.cap) out.push('표: ' + t.cap);
+    var cols = t.cols || [], rows = t.rows || [];
+    if (cols.length) {
+      out.push('| ' + cols.join(' | ') + ' |');
+      out.push('|' + cols.map(function () { return ' --- '; }).join('|') + '|');
+      rows.forEach(function (r) { out.push('| ' + r.join(' | ') + ' |'); });
+    }
+    if (t.note) out.push('※ ' + t.note);
+    return out.join('\n');
+  }
+
+  function promptTableOf(q) {
+    if (q.table) return q.table;
+    var set = currentSet();
+    return (set && set.tables && set.tables[q.chart]) || null;
+  }
+
+  function promptBlock(item) {
+    var q = item.q, a = state.answers[idOf(item)] || {};
+    var tr = transcriptOf(a), dur = a.dur || 0;
+    var L = [];
+    L.push('────────────────────────────');
+    L.push('[Q' + q.no + '] Part ' + partOf(q) + ' · ' + PARTS[partOf(q) - 1].en + ' · 답변 ' + (q.answer || 30) + '초');
+    L.push('');
+    if (q.kind === 'read') {
+      L.push('지문 (Read the text aloud):');
+      L.push(promptPlain(q.passage));
+    } else if (q.kind === 'picture') {
+      L.push('과제: 사진을 최대한 자세히 묘사');
+      if (q.sceneCap) L.push('사진: ' + promptPlain(q.sceneCap));
+      var scene = sceneDescription(q);
+      if (scene) L.push('사진 속 장면(참고용 설명): ' + scene);
+    } else if (q.kind === 'interview') {
+      if (q.scenario) L.push('상황: ' + promptPlain(q.scenario));
+      L.push('질문: “' + promptPlain(q.question) + '”');
+    } else if (q.kind === 'chart') {
+      var t = promptTableOf(q);
+      if (t) { L.push(promptTable(t)); L.push(''); }
+      L.push('질문: “' + promptPlain(q.question) + '”');
+    } else {
+      L.push('질문: “' + promptPlain(q.question) + '”');
+    }
+
+    L.push('');
+    if (tr) {
+      L.push('내 답변 (브라우저 받아쓰기 · 오탈자 있을 수 있음):');
+      L.push(tr);
+    } else if (a.url || dur || a.size) {
+      L.push('내 답변: [실시간 받아쓰기 미지원/텍스트 없음 — 녹음 길이 ' + (dur || 0) + 's]');
+    } else {
+      L.push('내 답변: [답변 없음 — 녹음·텍스트 없이 건너뛴 문항]');
+    }
+
+    var m = buildMetrics(q, tr, a);
+    if (a.score && a.score.metrics && a.score.metrics.pause) m.pause = a.score.metrics.pause;
+    var met = [];
+    if (dur) met.push('답변 ' + dur + '초');
+    if (tr) { met.push(m.words + '단어'); met.push('WPM ' + (m.wpm || 0)); }
+    met.push('필러 ' + (m.fillers || 0) + '회');
+    if (m.pause && typeof m.pause.pauseRatio === 'number') met.push('침묵 비율 ' + Math.round(m.pause.pauseRatio * 100) + '%');
+    if (tr) met.push('키워드 커버리지 ' + Math.round((m.coverage || 0) * 100) + '%');
+    L.push('');
+    L.push('로컬 지표: ' + met.join(' · '));
+
+    var ml = (Array.isArray(q.model) ? q.model : (q.model ? [q.model] : [])).map(promptPlain).filter(Boolean);
+    if (ml.length) {
+      L.push('');
+      L.push('모범답안 (AL 참고):');
+      ml.forEach(function (line) { L.push((ml.length > 1 ? '· ' : '') + line); });
+    }
+    return L.join('\n');
+  }
+
+  function answeredItems() {
+    return state.queue.filter(function (it) {
+      var a = state.answers[idOf(it)] || {};
+      return !!(a.url || transcriptOf(a));
+    });
+  }
+
+  function promptHead(list, single) {
+    var set = currentSet() || {};
+    var total = state.queue.length || list.length;
+    var answered = answeredItems();
+    var L = [];
+    L.push('[세션 정보]');
+    L.push('- 세트: ' + (set.label || '세트') + (set.title ? ' · ' + set.title : '') + ' · ' +
+      (state.mode === 'mock' ? '모의고사' : 'Part ' + state.part + ' 연습') + ' · ' + total + '문항');
+    L.push('- 채점 대상: ' + (single
+      ? 'Q' + list[0].q.no + ' 1문항'
+      : list.length + '문항' + (answered.length ? ' (답변이 기록된 문항 ' + answered.length + '/' + total + ')' : ' (답변 기록 없음)')));
+    if (!single && answered.length && answered.length < total) {
+      var miss = [];
+      state.queue.forEach(function (it) { if (answered.indexOf(it) < 0) miss.push('Q' + it.q.no); });
+      if (miss.length) L.push('- 답변이 없어 채점에서 뺀 문항: ' + miss.join(', '));
+    }
+    L.push('- 내 답변은 브라우저 받아쓰기 결과라 오탈자가 있을 수 있습니다. 받아쓰기가 없으면 녹음 길이만 표시됩니다. 텍스트로 판단할 수 없는 실제 발음·억양은 그 한계를 밝히고, 받아쓰기에서 드러나는 단서로만 평가해 주세요.');
+    return L;
+  }
+
+  function gradingPrompt(items, single) {
+    var total = state.queue.length || 1;
+    var answered = answeredItems();
+    var list = items && items.length ? items : state.queue;
+    if (!single && list === state.queue && answered.length) list = answered;
+    var L = [];
+    L.push('TOEIC Speaking 모의고사 — AI 채점 요청' + (single ? ' (문항 1개)' : '') + ' · 목표 AL 160~200');
+    L.push('');
+    L.push('아래는 제가 방금 본 TOEIC Speaking 모의고사 답변입니다. ETS 공식 기준으로 채점해 주세요.');
+    L.push('');
+    L.push(GRADING_RULES);
+    L.push('');
+    L.push(promptHead(list, single).join('\n'));
+    L.push('');
+    list.forEach(function (it) { L.push(promptBlock(it)); L.push(''); });
+    L.push('────────────────────────────');
+    L.push(single
+      ? '위 답변을 이 문항의 AL 기준으로 채점해 주세요. 마지막에 이 문항만의 우선순위 연습 2가지를 정리해 주세요.'
+      : '위 답변을 문항별로 채점하고, 마지막에 세션 전체 종합(종합 레벨 · 가장 큰 감점 요인 · 우선순위 연습 3가지)을 정리해 주세요.');
+    return L.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+  }
+
+  function legacyCopy(text) {
+    var ok = false;
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', 'readonly');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.width = '1px';
+    ta.style.height = '1px';
+    ta.style.padding = '0';
+    ta.style.border = '0';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    try {
+      ta.focus();
+      ta.select();
+      if (ta.setSelectionRange) ta.setSelectionRange(0, text.length);
+      ok = document.execCommand('copy');
+    } catch (e) { ok = false; }
+    try { document.body.removeChild(ta); } catch (e) {}
+    return ok;
+  }
+
+  function flashCopied(btn) {
+    if (!btn) return;
+    if (!btn._copyOrig) btn._copyOrig = btn.innerHTML;
+    btn.textContent = '복사됨 ✓';
+    clearTimeout(btn._copyTimer);
+    btn._copyTimer = setTimeout(function () {
+      btn.innerHTML = btn._copyOrig || '';
+      btn._copyOrig = '';
+    }, 1700);
+  }
+
+  function openCopyModal(text) {
+    var ta = $('copyText');
+    if (ta) ta.value = text;
+    $('copyModal').classList.add('show');
+    setTimeout(function () {
+      if (ta && ta.focus) { try { ta.focus(); ta.select(); } catch (e) {} }
+    }, 60);
+  }
+
+  function closeCopyModal() { $('copyModal').classList.remove('show'); }
+
+  function copyGradingPrompt(text, btn) {
+    var okMsg = '채점용 프롬프트가 복사되었습니다. ChatGPT나 피클에 붙여넣기 하세요!';
+    var done = function () { toast(okMsg, 4200); flashCopied(btn); };
+    var manual = function () { openCopyModal(text); };
+    var legacy = function () { if (legacyCopy(text)) done(); else manual(); };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done)['catch'](legacy);
+      } else {
+        legacy();
+      }
+    } catch (e) { legacy(); }
+  }
+
   /* ---------- summary: AI score panel ---------- */
   function renderSummaryScore() {
     var box = $('aiSummary');
@@ -6184,6 +6483,31 @@ var LEVEL_GUIDE = [
     $('btnScore').addEventListener('click', function () { var it = cur(); if (it) openScore(it); });
     $('aiClose').addEventListener('click', closeScore);
     $('aiClose2').addEventListener('click', closeScore);
+    $('aiCopyBtn').addEventListener('click', function () {
+      if (!scoreCtx.item) return;
+      copyGradingPrompt(gradingPrompt([scoreCtx.item], true), $('aiCopyBtn'));
+    });
+    $('btnCopyAll').addEventListener('click', function () {
+      if (!state.queue || !state.queue.length) {
+        toast('문항이 없습니다. 모의고사를 먼저 시작해 주세요.');
+        return;
+      }
+      copyGradingPrompt(gradingPrompt(state.queue), $('btnCopyAll'));
+    });
+    $('copyClose').addEventListener('click', closeCopyModal);
+    $('copyClose2').addEventListener('click', closeCopyModal);
+    $('copyModal').addEventListener('click', function (e) { if (e.target === $('copyModal')) closeCopyModal(); });
+    $('btnCopyRetry').addEventListener('click', function () {
+      var txt = $('copyText') ? $('copyText').value : '';
+      if (!txt) return;
+      if (legacyCopy(txt)) {
+        closeCopyModal();
+        toast('채점용 프롬프트가 복사되었습니다. ChatGPT나 피클에 붙여넣기 하세요!', 4200);
+      } else {
+        try { $('copyText').focus(); $('copyText').select(); } catch (e) {}
+        toast('길게 눌러 전체 선택한 뒤 복사해 주세요.', 4200);
+      }
+    });
     $('aiModal').addEventListener('click', function (e) { if (e.target === $('aiModal')) closeScore(); });
     $('aiModelBtn').addEventListener('click', function () {
       closeScore();
@@ -6263,6 +6587,7 @@ var LEVEL_GUIDE = [
     document.addEventListener('keydown', function (e) {
       if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
       if (e.key === 'Escape') {
+        if ($('copyModal').classList.contains('show')) { closeCopyModal(); return; }
         if ($('guideModal').classList.contains('show')) { closeGuide(); return; }
         if ($('settingsModal').classList.contains('show')) { closeSettings(); return; }
         if ($('aiModal').classList.contains('show')) { closeScore(); return; }
@@ -6345,7 +6670,8 @@ var LEVEL_GUIDE = [
     setFromAi: setFromAi, state: state, settings: settings, partOf: partOf,
     openScore: openScore, closeScore: closeScore, generateAiSet: generateAiSet,
     openDrawer: openDrawer, closeDrawer: closeDrawer,
-    openGuide: openGuide, closeGuide: closeGuide, templates: MAX_TEMPLATES
+    openGuide: openGuide, closeGuide: closeGuide, templates: MAX_TEMPLATES,
+    gradingPrompt: gradingPrompt, copyGradingPrompt: copyGradingPrompt
   };
 
   /* gentle hint for the first visit */
