@@ -1058,7 +1058,10 @@ footer{
 
 @media (max-width:860px){
   .hero{grid-template-columns:1fr;padding:26px 22px 20px;gap:16px}
-  .hero-crest{display:none}
+  .hero-crest{position:absolute;top:20px;right:18px;width:78px;max-width:78px;z-index:0;opacity:.95;
+    filter:drop-shadow(0 14px 22px rgba(20,0,8,.45))}
+  .hero-copy{padding-right:88px}
+  .hero-eyebrow{font-size:.56rem;letter-spacing:.16em}
   .mock-meta{margin-left:0}
   .if-body{grid-template-columns:1fr}
 }
@@ -1069,6 +1072,10 @@ footer{
   .topbar .brand-name{font-size:.95rem}
   .hero{margin-top:14px;border-radius:18px;padding:22px 18px 18px}
   .hero::before{inset:6px;border-radius:13px}
+  .hero-crest{display:none}
+  .hero-copy{padding-right:0}
+  .hero-meta span+span::before{display:none}
+  .hero-meta{gap:6px 12px}
   .hero h1{font-size:1.55rem}
   .hero .hero-sub{font-size:.86rem}
   .hero .seg{grid-template-columns:1fr;gap:5px}
