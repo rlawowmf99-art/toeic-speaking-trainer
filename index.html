@@ -6286,9 +6286,9 @@ var LEVEL_GUIDE = [
 
   function closeCopyModal() { $('copyModal').classList.remove('show'); }
 
-  function copyGradingPrompt(text, btn) {
-    var okMsg = '채점용 프롬프트가 복사되었습니다. ChatGPT나 피클에 붙여넣기 하세요!';
-    var done = function () { toast(okMsg, 4200); flashCopied(btn); };
+  function copyGradingPrompt(text, btn, okMsg) {
+    var ok = okMsg || '채점용 프롬프트가 복사되었습니다. ChatGPT나 피클에 붙여넣기 하세요!';
+    var done = function () { toast(ok, 4400); flashCopied(btn); };
     var manual = function () { openCopyModal(text); };
     var legacy = function () { if (legacyCopy(text)) done(); else manual(); };
     try {
@@ -6492,7 +6492,10 @@ var LEVEL_GUIDE = [
         toast('문항이 없습니다. 모의고사를 먼저 시작해 주세요.');
         return;
       }
-      copyGradingPrompt(gradingPrompt(state.queue), $('btnCopyAll'));
+      var none = !answeredItems().length;
+      copyGradingPrompt(gradingPrompt(state.queue), $('btnCopyAll'), none
+        ? '답변 기록이 없어 문항·모범답안만 담았습니다. 답변을 남기면 내 받아쓰기까지 함께 담깁니다.'
+        : '');
     });
     $('copyClose').addEventListener('click', closeCopyModal);
     $('copyClose2').addEventListener('click', closeCopyModal);
