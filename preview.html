@@ -3920,6 +3920,9 @@ var LEVEL_GUIDE = [
      1. branding + settings
      ========================================================= */
   var brand = Object.assign({}, DEFAULT_BRAND, loadJSON(LS_BRAND, {}));
+  if (brand.name === 'EiE 고려대어학원' || /KOREA UNIVERSITY|EXPRESS IN ENGLISH/i.test(brand.tag || '')) {
+    brand = Object.assign({}, DEFAULT_BRAND);   /* retire the old university branding */
+  }
   if (brand.tag === '표현영어 · Express in English' || brand.tag === 'KOREA UNIVERSITY · EXPRESS IN ENGLISH') brand.tag = DEFAULT_BRAND.tag;  /* older default */
   var settings = Object.assign({ tts: true, stt: true, auto: true, sound: true }, loadJSON(LS_SET, {}));
 
@@ -4467,7 +4470,7 @@ var LEVEL_GUIDE = [
     var t = sessionTotals();
     $('mockMinutes').textContent = mmss(t.ans);
     var chip = $('chipDur');
-    if (chip) chip.innerHTML = '전체 <b>약 ' + Math.round(t.total / 60 + 2) + '분</b>';
+    if (chip) chip.innerHTML = '<b>약 ' + Math.round(t.total / 60 + 2) + '분</b>';
     var metaB = document.querySelectorAll('.mock-meta b');
     if (metaB.length > 1) metaB[1].innerHTML = Math.round(t.total / 60 + 2) + '<span style="font-size:.8rem">분</span>';
   }
