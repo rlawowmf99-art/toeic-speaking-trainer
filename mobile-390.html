@@ -29,6 +29,13 @@
         'html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}' +
         'html{scrollbar-width:none;-ms-overflow-style:none}</style>');
       var y = parseInt((location.search.match(/[?&]y=(\d+)/) || [0, 0])[1], 10) || 0;
+      var z = parseFloat((location.search.match(/[?&]z=([\d.]+)/) || [0, 1])[1]) || 1;
+      if (z && z !== 1) {
+        var st = document.getElementById('stage');
+        st.style.transform = 'scale(' + z + ')';
+        st.style.transformOrigin = 'top center';
+        st.style.marginBottom = (844 * (z - 1)) + 'px';
+      }
       window.__ready = true;
       if (y) {
         // the app resets scroll on boot; keep it pinned for a few seconds
