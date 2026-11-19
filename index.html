@@ -221,6 +221,7 @@ a{color:var(--brand);text-decoration:none}
 .mock-flow{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--ink-4);font-weight:700;margin-bottom:18px;flex-wrap:wrap}
 .mock-flow i{width:5px;height:5px;border-radius:50%;background:var(--ink-4);opacity:.4}
 .side-stack{display:flex;flex-direction:column;gap:18px}
+.main-stack{display:flex;flex-direction:column;gap:18px;min-width:0}
 .tip-card{padding:20px}
 .tip-card h4{font-size:.86rem;font-weight:800;display:flex;align-items:center;gap:7px;margin-bottom:10px}
 .tip-card ul li{font-size:.83rem;color:var(--ink-2);padding-left:18px;position:relative;margin-bottom:7px;line-height:1.6}
@@ -1002,6 +1003,7 @@ footer{color:var(--ink-4)}
     </div>
 
     <div class="home-grid">
+      <div class="main-stack">
       <div class="card mock-card">
         <h3>
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--brand)"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
@@ -1021,6 +1023,18 @@ footer{color:var(--ink-4)}
           모의고사 시작하기
         </button>
       </div>
+        <div class="card tip-card">
+          <h4>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--prep)"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2Z"/></svg>
+            첫 응시 전에
+          </h4>
+          <ul>
+            <li>이어폰과 조용한 공간을 준비하세요. 마이크 권한을 허용하면 녹음이 시작됩니다.</li>
+            <li>준비 시간에는 소리 내지 말고 <b>구조를 메모</b>만 하세요. 실제 시험과 같아요.</li>
+            <li>답변이 끝나면 모범답안을 열어 내 표현과 비교해 보세요.</li>
+          </ul>
+        </div>
+      </div>
 
       <div class="side-stack">
         <div class="card quick-card">
@@ -1036,17 +1050,6 @@ footer{color:var(--ink-4)}
             <div class="qr-t">자동 진행<small>끊지 않고 다음 문제로 넘어가기</small></div>
             <label class="switch"><input type="checkbox" id="optAuto" checked><i></i><span class="sr-only">자동 진행</span></label>
           </div>
-        </div>
-        <div class="card tip-card">
-          <h4>
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--prep)"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2Z"/></svg>
-            첫 응시 전에
-          </h4>
-          <ul>
-            <li>이어폰과 조용한 공간을 준비하세요. 마이크 권한을 허용하면 녹음이 시작됩니다.</li>
-            <li>준비 시간에는 소리 내지 말고 <b>구조를 메모</b>만 하세요. 실제 시험과 같아요.</li>
-            <li>답변이 끝나면 모범답안을 열어 내 표현과 비교해 보세요.</li>
-          </ul>
         </div>
         <div class="card ta-card">
           <h4>
