@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0B0F19">
+<meta name="theme-color" content="#0E223D">
 <title>TOEIC Speaking Lab · 실전 모의고사</title>
 <meta name="description" content="TOEIC Speaking Lab — 45종 문제은행에서 매번 새 11문항 실전 모의고사. 준비·답변 타이머, 마이크 녹음, AI 채점과 AL 교정까지 브라우저에서 바로.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%230B0F19'/%3E%3Crect%20x='9'%20y='13'%20width='2.2'%20height='6'%20rx='1.1'%20fill='%23fff'/%3E%3Crect%20x='13.4'%20y='9.5'%20width='2.2'%20height='13'%20rx='1.1'%20fill='%23fff'/%3E%3Crect%20x='17.8'%20y='11.5'%20width='2.2'%20height='9'%20rx='1.1'%20fill='%23fff'/%3E%3Crect%20x='22.2'%20y='14'%20width='2.2'%20height='4'%20rx='1.1'%20fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%230E223D'/%3E%3Crect%20x='9'%20y='13'%20width='2.2'%20height='6'%20rx='1.1'%20fill='%23fff'/%3E%3Crect%20x='13.4'%20y='9.5'%20width='2.2'%20height='13'%20rx='1.1'%20fill='%23fff'/%3E%3Crect%20x='17.8'%20y='11.5'%20width='2.2'%20height='9'%20rx='1.1'%20fill='%23fff'/%3E%3Crect%20x='22.2'%20y='14'%20width='2.2'%20height='4'%20rx='1.1'%20fill='%23fff'/%3E%3C/svg%3E">
 <style>
 /* ============================================================================
    TOEIC Speaking Lab — "Assessment Center" design system
@@ -60,7 +60,8 @@
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{overflow-x:clip}
 body{
   font-family:var(--font);
   color:var(--ink);
@@ -219,7 +220,7 @@ b,strong{font-weight:650}
   font-style:normal;color:var(--brand-bright);-webkit-text-fill-color:currentColor;
 }
 .hero .hero-sub{
-  margin-top:18px;max-width:44ch;
+  margin-top:18px;max-width:47ch;
   font-size:.94rem;line-height:1.7;letter-spacing:-.012em;
   color:rgba(255,255,255,.66);
 }
@@ -1060,10 +1061,8 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
         <h1>11문항, 실전 그대로.<br>말하기는 <em>연습</em>이 만듭니다</h1>
         <p class="hero-sub">45종 문제은행에서 매번 새 11문항 조합 · AI 채점 &amp; AL 교정</p>
         <div class="hero-meta">
-          <span>Part 1–5</span>
-          <span>11문항</span>
+          <span>문제은행 45종</span>
           <span id="chipDur">약 12분</span>
-          <span>은행 45종</span>
         </div>
       </div>
 
@@ -1112,7 +1111,7 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
         <h2>파트별 연습</h2>
         <p>약점이 분명할 때는 그 파트만 3–4문항 집중 연습</p>
       </div>
-      <button class="btn btn-ghost btn-sm" id="btnGuide">📐 만점 템플릿 가이드</button>
+      <button class="btn btn-ghost btn-sm" id="btnGuide">만점 템플릿 가이드</button>
     </div>
     <div class="part-grid" id="partGrid"><!-- part cards injected --></div>
 
@@ -1300,7 +1299,7 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
     </div>
 
     <div class="card ai-sum-card">
-      <div class="ai-sum-title">🤖 AI 자동 채점 <span class="tag">발음·억양 · 문법·어휘 · 논리 · AL 교정</span></div>
+      <div class="ai-sum-title">AI 자동 채점 <span class="tag">발음·억양 · 문법·어휘 · 논리 · AL 교정</span></div>
       <div id="aiSummary"></div>
     </div>
 
@@ -1318,7 +1317,7 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
         <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
         이 세션 다시 하기
       </button>
-      <button class="btn btn-soft" id="btnNewRandom">🎲 새 조합으로 한 번 더</button>
+      <button class="btn btn-soft" id="btnNewRandom">새 조합으로 한 번 더</button>
       <button class="btn btn-ghost" id="btnOtherSet">다른 세트 풀기</button>
       <button class="btn btn-ghost" id="btnSumHome2">홈으로</button>
     </div>
@@ -1365,8 +1364,8 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
     <div class="field">
       <label>강조 색상</label>
       <div class="swatches" id="swatches">
-        <button data-color="#2563EB" style="background:#2563EB" aria-label="코발트"></button>
-        <button data-color="#0B0F19" style="background:#0B0F19" aria-label="옵시디언"></button>
+        <button data-color="#007B8A" style="background:#007B8A" aria-label="ETS 틸"></button>
+        <button data-color="#0E223D" style="background:#0E223D" aria-label="딥 네이비"></button>
         <button data-color="#0F766E" style="background:#0F766E" aria-label="딥 틸"></button>
         <button data-color="#B45309" style="background:#B45309" aria-label="앰버"></button>
         <button data-color="#6D28D9" style="background:#6D28D9" aria-label="바이올렛"></button>
@@ -2124,7 +2123,7 @@ var DEFAULT_BRAND = {
   name: 'TOEIC Speaking Lab',
   tag: 'SPEAKING PRACTICE · 11 QUESTIONS',
   mark: '',
-  color: '#2563EB'
+  color: '#007B8A'
 };
 
 var PARTS = [
@@ -3625,7 +3624,7 @@ function composeSet(selection, meta) {
   }
   return {
     id: meta.id || 'random',
-    label: meta.label || '🎲 랜덤',
+    label: meta.label || '랜덤',
     title: meta.title || '매번 새 조합',
     subtitle: meta.subtitle || '',
     ai: !!meta.ai,
@@ -4490,13 +4489,13 @@ var LEVEL_GUIDE = [
       if (part === 4) sel.chart = pickBank('chart', 1, avoid.chart)[0];
       if (part === 5) sel.opinion = pickBank('opinion', 1, avoid.opinion)[0];
       return composeSet(sel, {
-        id: 'random', label: '🎲 랜덤', title: 'Part ' + part + ' 랜덤 연습',
+        id: 'random', label: '랜덤', title: 'Part ' + part + ' 랜덤 연습',
         part: part, startNo: part === 1 ? 1 : part === 2 ? 3 : part === 3 ? 5 : part === 4 ? 8 : 11
       });
     }
     var s = randomSelection(avoid);
     return composeSet(s, {
-      id: 'random', label: '🎲 랜덤', title: '매번 새 조합',
+      id: 'random', label: '랜덤', title: '매번 새 조합',
       subtitle: '지문 2 · 사진 2 · 인터뷰 · 정보표 · 의견 — ' + (function () {
         var t = bankFind('interview', s.interview);
         return t ? t.title : '';
@@ -5010,7 +5009,7 @@ var LEVEL_GUIDE = [
     tools.appendChild(again);
     var guide = el('button', 'btn btn-ghost btn-sm');
     guide.type = 'button';
-    guide.innerHTML = '📐 Part ' + partOf(q) + ' 고득점 공식';
+    guide.innerHTML = 'Part ' + partOf(q) + ' 고득점 공식';
     guide.addEventListener('click', function () { openGuide(partOf(q)); });
     tools.appendChild(guide);
     sec1.appendChild(tools);
@@ -5087,7 +5086,7 @@ var LEVEL_GUIDE = [
       var meta = a.url ? ('녹음 ' + a.dur + '초 · ' + Math.round(a.size / 1024) + ' KB') : (a.skipped ? '건너뛴 문항' : '녹음 없음');
       rt.appendChild(el('div', 'rt-meta', meta));
       if (a.score) {
-        rt.appendChild(el('div', 'rt-score', '🤖 Lv.' + a.score.estimated.level + ' · ' + a.score.overall.toFixed(1) + '/5'));
+        rt.appendChild(el('div', 'rt-score', 'Lv.' + a.score.estimated.level + ' · ' + a.score.overall.toFixed(1) + '/5'));
       }
       if (a.url) {
         var au = document.createElement('audio');
@@ -5690,7 +5689,7 @@ var LEVEL_GUIDE = [
     if (!it) return;
     var q = it.q;
     var res = scoreCtx.result;
-    $('aiTitle').textContent = (res && res.source === 'ai' ? '🤖 AI 채점' : '📊 답변 분석') + ' · Q' + q.no;
+    $('aiTitle').textContent = (res && res.source === 'ai' ? 'AI 채점' : '답변 분석') + ' · Q' + q.no;
     $('aiSub').textContent = 'Part ' + partOf(q) + ' ' + PARTS[partOf(q) - 1].ko + ' · ' + (q.bankTitle || kindLabel(q));
     var h = '';
 
@@ -5912,7 +5911,7 @@ var LEVEL_GUIDE = [
     }
     if (qs.length !== 11) throw new Error('AI가 만든 문항이 11개가 아니라 ' + qs.length + '개입니다. 다시 시도해 주세요.');
     return {
-      id: 'ai-' + Date.now(), label: '✨ AI 세트', title: js.title || 'AI가 만든 새 세트',
+      id: 'ai-' + Date.now(), label: 'AI 세트', title: js.title || 'AI가 만든 새 세트',
       subtitle: 'OpenAI 생성 · ' + new Date().toLocaleDateString('ko-KR'), ai: true, qs: qs
     };
   }
