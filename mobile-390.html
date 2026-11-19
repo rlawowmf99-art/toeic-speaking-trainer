@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mobile 390 harness</title>
+<style>
+  html,body{margin:0;padding:0;background:#7C8794}
+  body{display:flex;justify-content:center;align-items:flex-start}
+  #stage{width:390px;height:844px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px #5b6673}
+  #f{display:block;width:390px;height:844px;border:0;background:#fff}
+</style>
+</head>
+<body>
+<div id="stage"><iframe id="f" src="./index.html"></iframe></div>
+<script>
+(function () {
+  var f = document.getElementById('f');
+  function ready() {
+    var q = new Promise(function (res) {
+      if (f.contentDocument && f.contentDocument.readyState === 'complete') return res();
+      f.addEventListener('load', function () { setTimeout(res, 250); });
+    });
+    return q.then(function () {
+      var d = f.contentDocument, w = f.contentWindow;
+      var y = parseInt((location.search.match(/[?&]y=(\d+)/) || [0, 0])[1], 10) || 0;
+      if (y) w.scrollTo(0, y);
+      window.__ready = true;
+    });
+  }
+  window.measure = function () {
+    var d = f.contentDocument, w = f.contentWindow;
+    var pick = function (sel) {
+      return Array.prototype.map.call(d.querySelectorAll(sel), function (e) {
+        var r = e.getBoundingClientRect();
+        return {
+          x: +r.x.toFixed(2), y: +r.y.toFixed(2), w: +r.width.toFixed(2), h: +r.height.toFixed(2),
+          right: +(r.x + r.width).toFixed(2),
+          txt: (e.textContent || '').trim().slice(0, 22)
+        };
+      });
+    };
+    var sw = d.querySelector('.switch i'), thumb = null;
+    var out = {
+      vw: w.innerWidth,
+      scrollWidth: d.documentElement.scrollWidth,
+      clientWidth: d.documentElement.clientWidth,
+      app: pick('.app'), hero: pick('.hero'), inner: pick('.hero-inner'), panel: pick('.hero-panel'),
+      meta: pick('.mock-meta div'), metaB: pick('.mock-meta b'),
+      cta: pick('.hero-cta .btn'), opt: pick('.opt-bar'), row: pick('.ob-row'),
+      sw: pick('.switch'), sectionHead: pick('.section-head'), guide: pick('#btnGuide'),
+      part: pick('.part-card').slice(0, 2)
+    };
+    // thumb geometry of the first checked switch
+    var first = d.querySelector('.switch input:checked + i');
+    if (first) {
+      var track = first.getBoundingClientRect();
+      var st = w.getComputedStyle(first, '::after');
+      out.thumb = {
+        trackW: +track.width.toFixed(2), trackH: +track.height.toFixed(2),
+        left: st.left, top: st.top, width: st.width, height: st.height,
+        radius: st.borderRadius, transform: st.transform, background: w.getComputedStyle(first).backgroundColor,
+        thumbBg: st.backgroundColor
+      };
+    }
+    return out;
+  };
+  ready();
+})();
+</script>
+</body>
+</html>

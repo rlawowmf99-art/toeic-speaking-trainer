@@ -150,7 +150,7 @@ b,strong{font-weight:650}
 /* ---------- 3. Buttons ---------- */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  height:44px;padding:0 20px;border-radius:7px;
+  height:46px;padding:0 20px;border-radius:12px;
   font-weight:600;font-size:.88rem;letter-spacing:-.018em;
   border:1px solid transparent;white-space:nowrap;
   transition:transform .16s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
@@ -169,7 +169,7 @@ b,strong{font-weight:650}
 .btn-danger-soft{background:var(--rec-soft);color:var(--rec);border-color:#F2D8DB}
 .btn-gold{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:0 10px 24px -16px rgba(14,34,61,.9)}
 .btn-gold:hover{background:var(--navy-2);transform:translateY(-1px)}
-.btn-sm{height:34px;padding:0 12px;border-radius:6px;font-size:.78rem;font-weight:550}
+.btn-sm{height:34px;padding:0 12px;border-radius:10px;font-size:.78rem;font-weight:550}
 .btn-sm svg{width:13px;height:13px}
 .btn-block{width:100%}
 .btn[disabled]{opacity:.4;transform:none!important;box-shadow:none}
@@ -244,17 +244,28 @@ b,strong{font-weight:650}
 /* exam card */
 .hero-panel{
   position:relative;z-index:1;
-  padding:24px 24px 22px;border-radius:var(--r-lg);
+  padding:22px 22px 20px;border-radius:20px;
   background:#fff;
-  border-top:3px solid var(--brand);
-  box-shadow:0 34px 70px -44px rgba(0,0,0,.85), 0 1px 2px rgba(14,34,61,.10);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 30px 64px -34px rgba(0,0,0,.62), 0 2px 6px rgba(8,20,37,.16);
 }
-.mock-meta{display:flex;align-items:flex-start;margin:0 0 20px;padding-bottom:18px;border-bottom:1px solid var(--line-2)}
-.mock-meta div{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0;padding-left:14px;border-left:1px solid var(--line-2)}
-.mock-meta div:first-child{padding-left:0;border-left:none}
+.mock-meta{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;
+  margin:0 0 20px;padding:0 0 18px;border-bottom:1px solid var(--line-2);
+}
+.mock-meta div{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  min-width:0;padding:0 6px;text-align:center;
+  border-left:1px solid var(--line-2);
+}
+.mock-meta div:first-child{border-left:none}
 .mock-meta b{
-  font-size:1rem;font-weight:650;letter-spacing:-.03em;color:var(--navy);
+  display:inline-flex;align-items:baseline;justify-content:center;gap:1px;
+  font-size:1.06rem;font-weight:680;letter-spacing:-.03em;color:var(--navy);
   font-variant-numeric:tabular-nums;line-height:1.1;
+}
+.mock-meta b .stat-unit{
+  font-size:.6em;font-weight:600;letter-spacing:0;color:var(--ink-3);
 }
 .mock-meta span{
   font-family:var(--mono);font-size:.54rem;font-weight:500;letter-spacing:.11em;
@@ -263,34 +274,48 @@ b,strong{font-weight:650}
 .pf-info{display:flex;flex-direction:column;gap:5px;min-width:0;margin-bottom:18px}
 .pf-label{font-size:.86rem;font-weight:600;letter-spacing:-.024em;color:var(--ink)}
 .pf-sub{font-size:.75rem;line-height:1.55;color:var(--ink-3)}
-.hero-cta{display:flex;flex-direction:column;gap:7px}
-.hero-cta .btn-primary{height:48px;font-size:.9rem;font-weight:650;letter-spacing:-.02em;width:100%}
-.hero-cta .btn-ghost{height:38px;font-size:.79rem;font-weight:550;width:100%;box-shadow:none;background:#FAFBFC}
-.hero-cta .btn-ghost:hover{background:#F3F6F9;box-shadow:none}
-.hero-cta .btn-ghost svg{opacity:.75}
+.hero-cta{display:flex;flex-direction:column;gap:8px}
+.hero-cta .btn{width:100%;display:flex;align-items:center;justify-content:center;text-align:center}
+.hero-cta .btn-primary{
+  height:52px;border-radius:14px;font-size:.95rem;font-weight:650;letter-spacing:-.02em;
+  box-shadow:0 8px 18px -12px rgba(0,101,111,.85), inset 0 1px 0 rgba(255,255,255,.16);
+}
+.hero-cta .btn-ghost{height:50px;border-radius:14px;font-size:.87rem;font-weight:550;box-shadow:none;background:#F4F8FB;border-color:#E6EDF3;color:var(--ink-2)}
+.hero-cta .btn-ghost:hover{background:#EDF4F8;box-shadow:none}
+.hero-cta .btn-ghost svg{opacity:.7}
 
 /* ---------- 5. Option strip ---------- */
 .opt-bar{
-  display:flex;align-items:center;gap:10px 26px;flex-wrap:wrap;
-  margin:20px 0 0;padding:14px 20px;border-radius:var(--r-md);
-  background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;
+  margin:18px 0 0;padding:0;border-radius:16px;overflow:hidden;
+  background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(14,34,61,.05);
 }
-.ob-row{display:flex;align-items:center;gap:9px;font-size:.79rem;font-weight:520;color:var(--ink-2);letter-spacing:-.014em}
-.ob-row .switch{width:34px;height:20px}
-.ob-row .switch i::after{width:14px;height:14px}
-.ob-row .switch input:checked + i::after{transform:translateX(14px)}
-.ob-grow{flex:1}
+.ob-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:58px;padding:0 18px;
+  font-size:.86rem;font-weight:540;color:var(--ink-2);letter-spacing:-.016em;
+  border-left:1px solid var(--line-2);
+}
+.ob-row:first-child{border-left:none}
+.ob-grow{display:none}
 .opt-bar .btn{margin-left:auto}
 
-.switch{position:relative;width:38px;height:22px;flex:none;display:inline-block}
+/* iOS pill switch: 46×28 track, perfectly centred 24px thumb */
+.switch{position:relative;width:46px;height:28px;flex:none;display:inline-block}
 .switch input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;z-index:2}
-.switch i{position:absolute;inset:0;background:#DCE3EC;border-radius:2px;transition:background .2s}
-.switch i::after{
-  content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;background:#fff;border-radius:1px;
-  box-shadow:0 1px 2px rgba(14,34,61,.28);transition:transform .2s cubic-bezier(.3,.7,.3,1);
+.switch i{
+  position:absolute;inset:0;background:#E3E8EF;border-radius:999px;
+  box-shadow:inset 0 0 0 1px rgba(14,34,61,.06);
+  transition:background .26s ease,box-shadow .26s ease;
 }
-.switch input:checked + i{background:var(--brand)}
-.switch input:checked + i::after{transform:translateX(16px)}
+.switch i::after{
+  content:"";position:absolute;left:2px;top:2px;width:24px;height:24px;background:#fff;border-radius:50%;
+  box-shadow:0 3px 8px rgba(14,34,61,.20), 0 1px 2px rgba(14,34,61,.16), 0 0 0 .5px rgba(14,34,61,.04);
+  transition:transform .26s cubic-bezier(.28,.9,.32,1);
+}
+.switch input:checked + i{background:var(--brand);box-shadow:inset 0 0 0 1px rgba(0,60,68,.14)}
+.switch input:checked + i::after{transform:translateX(18px)}
+.switch input:active + i::after{box-shadow:0 3px 10px rgba(14,34,61,.26), 0 1px 2px rgba(14,34,61,.18)}
 .switch input:focus-visible + i{outline:2px solid var(--brand);outline-offset:3px}
 
 /* ---------- 6. Sections + part cards ---------- */
@@ -364,7 +389,7 @@ b,strong{font-weight:650}
   color:var(--ink-4);font-weight:600;flex:none;
 }
 
-.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;flex:0 1 460px;min-width:0;max-width:460px;background:#F1F5F9;border-radius:6px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;flex:0 1 460px;min-width:0;max-width:460px;background:#F1F5F9;border-radius:11px}
 .seg button{
   text-align:left;padding:8px 10px;border-radius:4px;transition:background .16s,box-shadow .16s;
   display:flex;gap:8px;align-items:center;color:var(--ink-3);
@@ -513,7 +538,7 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
 .info-note{font-size:.71rem;color:var(--ink-3);padding:10px 16px;background:#F8FAFC;border-top:1px solid var(--line-2)}
 
 .side-pane{display:flex;flex-direction:column;gap:10px;position:sticky;top:74px}
-.card{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-sm)}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm)}
 .timer-card{padding:18px 16px 14px;display:flex;flex-direction:column;align-items:center;gap:4px;border-radius:var(--r-md)}
 .ring-wrap{position:relative;width:142px;height:142px}
 .ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
@@ -952,30 +977,50 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
 }
 @media (max-width:640px){
   body{font-size:15px}
-  .app{padding:0 16px 64px}
-  .tb-inner{padding:12px 16px}
-  .brand-mark{width:26px;height:26px}
-  .brand-name{font-size:.87rem}
+  .app{padding:0 20px 64px}
+  .tb-inner{padding:12px 20px}
+  .brand-mark{width:28px;height:28px;border-radius:9px}
+  .brand-name{font-size:.88rem}
   .brand-tag{display:none}
-  .hero-inner{padding:32px 16px 34px;gap:26px}
-  .hero h1{font-size:1.8rem;line-height:1.2;letter-spacing:-.038em;margin-top:16px}
-  .hero .hero-sub{font-size:.87rem;margin-top:14px}
-  .hero-meta{font-size:.6rem;gap:6px 14px;margin-top:20px;color:rgba(255,255,255,.7)}
-  .hero-meta span{gap:12px}
-  .hero-panel{padding:20px 18px 18px}
-  .mock-meta{gap:0;margin-bottom:18px;padding-bottom:16px}
-  .mock-meta div{padding-left:12px}
-  .mock-meta b{font-size:.9rem}
+  .icon-btn{border-radius:999px}
+  /* full-bleed masthead that stays exactly symmetric on both sides */
+  .hero{margin-left:-20px;margin-right:-20px}
+  .hero-inner{padding:28px 20px 26px;gap:20px}
+  .hero h1{font-size:1.72rem;line-height:1.22;letter-spacing:-.04em;margin-top:14px}
+  .hero h1 .h1-kicker{font-size:.36em;margin-bottom:8px;letter-spacing:.02em}
+  .hero .hero-sub{font-size:.86rem;line-height:1.65;margin-top:12px;max-width:none;color:rgba(255,255,255,.72)}
+  .hero-meta{
+    gap:7px;margin-top:16px;font-family:var(--font);font-size:.68rem;
+    letter-spacing:-.012em;text-transform:none;color:rgba(255,255,255,.92);
+  }
+  .hero-meta span{
+    gap:0;padding:5px 11px;border-radius:999px;
+    background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);
+    color:rgba(255,255,255,.94);font-weight:560;
+  }
+  .hero-meta span+span::before{display:none}
+  .hero-meta #chipDur b{color:#fff;font-weight:600}
+  .hero-panel{padding:16px;border-radius:22px}
+  .mock-meta{gap:0;margin-bottom:16px;padding-bottom:14px}
+  .mock-meta div{padding:0 4px;gap:4px}
+  .mock-meta b{font-size:1.04rem}
   .mock-meta span{font-size:.5rem;letter-spacing:.09em}
-  .hero-cta .btn-primary{height:46px}
-  .opt-bar{padding:6px 14px;flex-direction:column;align-items:stretch;gap:0}
-  .ob-row{padding:9px 0;justify-content:space-between}
-  .ob-row + .ob-row{border-top:1px solid var(--line-2)}
-  .ob-grow{display:none}
-  .section-head{align-items:flex-start;gap:10px;flex-wrap:wrap;margin:28px 0 14px}
-  .section-head p{font-size:.75rem}
-  .part-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  .part-card{padding:15px 13px 13px}
+  .pf-info{gap:4px;margin-bottom:16px}
+  .pf-label{font-size:.9rem}
+  .pf-sub{font-size:.76rem;line-height:1.5}
+  .hero-cta .btn-primary{height:52px}
+  .hero-cta .btn-ghost{height:50px}
+  .opt-bar{grid-template-columns:1fr;margin-top:16px;border-radius:16px}
+  .ob-row{
+    min-height:56px;padding:0 16px;font-size:.9rem;
+    border-left:none;border-top:1px solid var(--line-2);
+  }
+  .ob-row:first-child{border-top:none}
+  .section-head{flex-direction:column;align-items:stretch;gap:12px;margin:26px 0 14px}
+  .section-head p{font-size:.76rem}
+  .section-head .btn{width:100%;height:46px;border-radius:14px;justify-content:center;font-size:.84rem}
+  .part-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .part-card{padding:16px 14px 14px;border-radius:16px}
   .fold-set{flex-direction:column;align-items:stretch;gap:9px}
   .seg{min-width:0}
   .seg button{padding:7px 8px}
@@ -1074,7 +1119,7 @@ table.info tbody tr:nth-child(even){background:#FBFCFE}
       <div class="hero-panel">
         <div class="mock-meta">
           <div><b>11</b><span>문항</span></div>
-          <div><b>12<span style="font-size:.7rem">분</span></b><span>예상</span></div>
+          <div><b>12<span class="stat-unit">분</span></b><span>예상</span></div>
           <div><b>5</b><span>파트</span></div>
           <div><b id="mockMinutes">5:30</b><span>답변</span></div>
         </div>
@@ -4477,7 +4522,7 @@ var LEVEL_GUIDE = [
     var chip = $('chipDur');
     if (chip) chip.innerHTML = '<b>약 ' + Math.round(t.total / 60 + 2) + '분</b>';
     var metaB = document.querySelectorAll('.mock-meta b');
-    if (metaB.length > 1) metaB[1].innerHTML = Math.round(t.total / 60 + 2) + '<span style="font-size:.8rem">분</span>';
+    if (metaB.length > 1) metaB[1].innerHTML = Math.round(t.total / 60 + 2) + '<span class="stat-unit">분</span>';
   }
 
   /* =========================================================
