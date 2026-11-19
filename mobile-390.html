@@ -29,8 +29,15 @@
         'html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}' +
         'html{scrollbar-width:none;-ms-overflow-style:none}</style>');
       var y = parseInt((location.search.match(/[?&]y=(\d+)/) || [0, 0])[1], 10) || 0;
-      if (y) w.scrollTo(0, y);
       window.__ready = true;
+      if (y) {
+        // the app resets scroll on boot; keep it pinned for a few seconds
+        var t0 = Date.now();
+        var tick = setInterval(function () {
+          if (w.scrollY !== y) w.scrollTo(0, y);
+          if (Date.now() - t0 > 5000) clearInterval(tick);
+        }, 120);
+      }
     });
   }
   window.measure = function () {
