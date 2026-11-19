@@ -6,7 +6,7 @@ v3는 모든 모범답안·주요 표현·채점 프롬프트·셀프 체크를 
 
 파일 하나(`index.html`)로 끝나며, 설치·서버·로그인 없이 브라우저에서 바로 열립니다.
 
-- 파일: `projects/toeic-speaking-trainer/index.html` (약 344KB, 단일 파일)
+- 파일: `projects/toeic-speaking-trainer/index.html` (약 400KB, 단일 파일)
 - 실행: 파일을 더블클릭 → 브라우저에서 시작 (오프라인에서도 동작)
 - 외부 요청 0건(기본): 사진(장면)은 전부 인라인 SVG, 폰트는 시스템 폰트, CDN·이미지 파일 없음
 - AI 기능을 켠 경우에만 OpenAI(또는 지정한 프록시)로 요청이 나갑니다.
